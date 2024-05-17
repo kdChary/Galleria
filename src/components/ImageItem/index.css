@@ -1,0 +1,27 @@
+.image-item{
+	list-style-type: none;
+}
+
+.image-item .image{
+	width: 79px;
+	height: 91px;
+	border: none;
+	border-radius: 11px;
+	cursor: pointer;
+}
+@media screen and (min-width:425px) and (max-width:575px){
+	.image-item .image{
+		width: 89px;
+		height: 95px;
+	}
+}
+@media screen and (min-width:768px){
+	.image-item .image{
+		width: 237px;
+		height: 175px;
+	}
+}
+
+.image:hover{
+	box-shadow: 0 5px 12px 0 #2a2729;
+}
