@@ -1,0 +1,11 @@
+{
+	"cSpell.words": [
+		"Hbpj",
+		"Meiv",
+		"Xmgx"
+	],
+	"editor.formatOnSave": true,
+	"[javascript]": {
+		"editor.defaultFormatter": "vscode.typescript-language-features"
+	},
+}
