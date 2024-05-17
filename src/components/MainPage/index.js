@@ -4,6 +4,8 @@ import { BsSearch } from "react-icons/bs"
 import { FcGallery } from "react-icons/fc"
 
 import './index.css'
+import ImageItem from '../ImageItem'
+
 const apiConstant = {
 	initial: 'INITIAL',
 	inProgress: 'IN_PROGRESS',
@@ -17,7 +19,7 @@ class MainPage extends Component {
 		imagesData: [],
 		fetchStatus: apiConstant.initial,
 		category: '',
-		query: '',
+		query: 'random',
 		errMsg: '',
 	};
 
@@ -31,15 +33,14 @@ class MainPage extends Component {
 
 	searchClicked = () => {
 		const { category } = this.state
-		this.setState( { query: category } )
+		this.setState( { query: category }, ()=> this.getImages( category ) )
 	}
 
-	getImages = async () => {
-		const { category } = this.state
-		const query = category !== "" ? `query=${category}` : "query=random"
+	getImages = async ( val ) => {
+		const query = val === "" || undefined ? "query=random" : `query=${val}`
 		this.setState( { fetchStatus: apiConstant.inProgress } )
 
-		const url = `https://api.unsplash.com/search/photos/?per_page=20&${query}&${auth}`
+		const url = `https://api.unsplash.com/search/photos/?per_page=30&${query}&${auth}`
 		const options = {
 			method: 'GET',
 		}
@@ -58,6 +59,7 @@ class MainPage extends Component {
 				uploadedAt: image.updated_at,
 				uploadedBy: image.user.name,
 				imageUrl: image.urls.small,
+				likes: image.likes
 			} ) )
 			this.setState( {
 				fetchStatus: apiConstant.success,
@@ -89,22 +91,35 @@ class MainPage extends Component {
 	);
 
 	renderImages = () => {
-		const {imagesData} = this.state
-		console.log(imagesData)
+		const { imagesData, category } = this.state
+
+		return (
+			<ul className="images-list">
+				{imagesData.map( image => <ImageItem key={image.id} imageDetails={image} altVal={category} /> )}
+			</ul>
+		)
+	}
+
+	showError = () => {
+		const { errMsg } = this.state
+
+		return (
+			<p className='error-msg'>{errMsg}</p>
+		)
 	}
 
 	displayComponents = () => {
-		const { fetchStatus, errMsg } = this.state
+		const { fetchStatus } = this.state
 
 		switch ( fetchStatus ) {
 			case apiConstant.inProgress:
 				return <>{this.loader()}</>
 
 			case apiConstant.success:
-				return <h1>Hello</h1>
+				return <>{this.renderImages()}</>
 
 			case apiConstant.failure:
-				return <h1>{errMsg}</h1>
+				return <>{this.showError()}</>
 
 			default:
 				break
@@ -112,27 +127,30 @@ class MainPage extends Component {
 	}
 
 	render() {
-		const { category } = this.state
+		const { category, query } = this.state
 		return (
 			<div className="main-page">
 				<div className="header">
+
 					<div className="app-header">
 						<FcGallery className='app-icon' />
 						<h1 className="app-title">Galleria</h1>
 					</div>
+
 					<div className="search-box">
 						<input type="search" value={category} className="input" placeholder='Search images' onChange={this.changeQuery} />
-						<button type="button" className="search-btn">
+
+						<button type="button" className="search-btn" onClick={this.searchClicked}>
 							<BsSearch />
 						</button>
 					</div>
-					{/* <div className="category-card">
-						contains a list of options to filter
-					</div> */}
 				</div>
-				<ul className="images-list">
-				{this.displayComponents()}
-				</ul>
+
+				<div className="image-container">
+					<h3 className="image-title">{query}</h3>
+					<hr className="line" />
+					{this.displayComponents()}
+				</div>
 			</div>
 		)
 	}
