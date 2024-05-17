@@ -1,0 +1,86 @@
+.main-page{
+	width: 100%;
+	min-height: 100vh;
+	background: conic-gradient(from -136deg,  #a560f0,#789fff,#976fff,#a560f0);
+
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+
+	gap: 34px;
+	padding: 12px;
+	color: #fff;
+	text-shadow: 2px 4px #d504d9;
+}
+.header{
+	width: 75%;
+	height: auto;
+
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: 23px;
+
+}
+.header .search-box{
+	width: 90%;
+	height: 33px;
+	display: flex;
+	align-items: center;
+
+	background: #fff;
+	border: solid 2px #fff;
+	border-radius: 9px;
+
+	font-size: 13px;
+	font-weight: 500;
+	padding-left: 5%;
+	outline: none;
+	cursor: pointer;
+}
+
+.header .search-box .input{
+	width: 85%;
+	height: 100%;
+	background: transparent;
+	border: none;
+	outline: none;
+	text-overflow: ellipsis;
+
+}
+.search-box .search-btn{
+	width: 33px;
+	height: 100%;
+	background: transparent;
+	border: none;
+
+	font-size: 17px;
+	margin-left: auto;
+	outline: none;
+	cursor: pointer;
+	color: #109fff;
+}
+
+.header .app-header{
+	display: block;
+	text-align: center;
+}
+.app-header .app-icon{
+	width: 43px;
+	height: 43px;
+}
+.app-header .app-title{
+	color: #d504d9;
+	text-shadow: 2px 4px #12f3e7;
+
+}
+
+.images-list{
+	width: 100%;
+	height: inherit;
+
+	padding: 3%;
+	display: flex;
+	flex-direction: column;
+	flex-wrap: wrap;
+}
